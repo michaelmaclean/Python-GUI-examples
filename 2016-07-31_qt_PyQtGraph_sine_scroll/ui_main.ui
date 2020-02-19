@@ -2,16 +2,14 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>820</width>
-    <height>650</height>
-   </rect>
+  <property name="font">
+   <font>
+    <family>Mongolian Baiti</family>
+    <strikeout>false</strikeout>
+   </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Qt Graphey graph</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -53,7 +51,16 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="actionclose">
+   <property name="text">
+    <string>closedsf</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

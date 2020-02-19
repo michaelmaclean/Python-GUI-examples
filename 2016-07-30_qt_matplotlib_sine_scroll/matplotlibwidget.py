@@ -18,8 +18,8 @@ Copyright © 2005 Florent Rougon, 2006 Darren Dale
 
 __version__ = "1.0.0"
 
-from PyQt4.QtGui import QSizePolicy
-from PyQt4.QtCore import QSize
+from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtCore import QSize
 
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as Canvas
 from matplotlib.figure import Figure
@@ -77,7 +77,7 @@ class MatplotlibWidget(Canvas):
             self.axes.set_xlim(*xlim)
         if ylim is not None:
             self.axes.set_ylim(*ylim)
-        self.axes.hold(hold)
+        #self.axes.hold(hold)
 
         Canvas.__init__(self, self.figure)
         self.setParent(parent)
@@ -99,7 +99,7 @@ class MatplotlibWidget(Canvas):
 #===============================================================================
 if __name__ == '__main__':
     import sys
-    from PyQt4.QtGui import QMainWindow, QApplication
+    from PyQt5.QtWidgets import QMainWindow, QApplication
     from numpy import linspace
     
     class ApplicationWindow(QMainWindow):
