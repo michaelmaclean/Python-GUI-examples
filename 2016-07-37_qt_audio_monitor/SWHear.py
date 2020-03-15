@@ -43,6 +43,8 @@ class SWHear():
         self.chunksRead=0
         self.device=device
         self.rate=rate
+        self.data = None  # will fill up with threaded recording data
+        self.fft = None
 
     ### SYSTEM TESTS
 
@@ -57,15 +59,21 @@ class SWHear():
     def valid_test(self,device,rate=44100):
         """given a device ID and a rate, return TRUE/False if it's valid."""
         try:
-            self.info=self.p.get_device_info_by_index(device)
+            self.info=self.p.get_device_info_by_index(device)            
             if not self.info["maxInputChannels"]>0:
                 return False
+            #print("Testing Device ",device,"\n------------------")            
+            #for key, value in self.info.items():  # dct.iteritems() in Python 2
+            #    print("{} ({})".format(key, value))
+            #print("")            
             stream=self.p.open(format=pyaudio.paInt16,channels=1,
                input_device_index=device,frames_per_buffer=self.chunk,
                rate=int(self.info["defaultSampleRate"]),input=True)
             stream.close()
             return True
-        except:
+        except Exception as E:
+            #print("DEVICE INVALID:")
+            #print(E,"\n"*3)
             return False
 
     def valid_input_devices(self):
@@ -92,11 +100,13 @@ class SWHear():
         if self.rate is None:
             self.rate=self.valid_low_rate(self.device)
         self.chunk = int(self.rate/self.updatesPerSecond) # hold one tenth of a second in memory
+        print("\n"*2)
         if not self.valid_test(self.device,self.rate):
-            print("guessing a valid microphone device/rate...")
+            print("Guessing a valid microphone device/rate...")
             self.device=self.valid_input_devices()[0] #pick the first one
             self.rate=self.valid_low_rate(self.device)
         self.datax=np.arange(self.chunk)/float(self.rate)
+        print("\n"*5)
         msg='recording from "%s" '%self.info["name"]
         msg+='(device %d) '%self.device
         msg+='at %d Hz'%self.rate
@@ -106,7 +116,7 @@ class SWHear():
         """gently detach from things."""
         print(" -- sending stream termination command...")
         self.keepRecording=False #the threads should self-close
-        while(self.t.isAlive()): #wait for all threads to close
+        while self.t.is_alive(): #wait for all threads to close
             time.sleep(.1)
         self.stream.stop_stream()
         self.p.terminate()
@@ -127,7 +137,7 @@ class SWHear():
             self.stream_thread_new()
         else:
             self.stream.close()
-            self.p.terminate()
+            #self.p.terminate()  #MM what if you want to restart? this doesnt seem right? 
             print(" -- stream STOPPED")
         self.chunksRead+=1
 
@@ -146,14 +156,25 @@ class SWHear():
         self.stream=self.p.open(format=pyaudio.paInt16,channels=1,
                       rate=self.rate,input=True,frames_per_buffer=self.chunk)
         self.stream_thread_new()
-
+    
+    def stream_stop(self):
+        """gently detach from things."""
+        print(" -- sending stream termination command...")
+        self.keepRecording=False #the threads should self-close
+        while self.t.is_alive(): #wait for all threads to close
+            time.sleep(.1)
+        self.stream.stop_stream()
+        
 if __name__=="__main__":
     ear=SWHear(updatesPerSecond=10) # optinoally set sample rate here
     ear.stream_start() #goes forever
     lastRead=ear.chunksRead
-    while True:
+    loop = 5
+    while loop > 0:
+        loop = loop - 1
         while lastRead==ear.chunksRead:
             time.sleep(.01)
         print(ear.chunksRead,len(ear.data))
         lastRead=ear.chunksRead
+    ear.stream_stop()
     print("DONE")

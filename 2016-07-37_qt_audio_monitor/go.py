@@ -1,4 +1,4 @@
-from PyQt4 import QtGui,QtCore
+from PyQt5 import QtGui,QtCore, QtWidgets
 
 import sys
 import ui_main
@@ -15,8 +15,24 @@ class ExampleApp(QtGui.QMainWindow, ui_main.Ui_MainWindow):
         self.grPCM.plotItem.showGrid(True, True, 0.7)
         self.maxFFT=0
         self.maxPCM=0
-        self.ear = SWHear.SWHear(rate=44100,updatesPerSecond=20)
+        self.ear = SWHear.SWHear(device=2,rate=44100,updatesPerSecond=20)
+        self.btnStart.clicked.connect(self.start)
+        self.btnStop.clicked.connect(self.stop)
+        self.statusBar.showMessage('Message in statusbar.',2500)
+
+    def start(self):
+        #if valid connection, and not started, then
         self.ear.stream_start()
+
+    def stop(self):
+        #if valid connection, and not started, then
+        self.ear.stream_stop()
+
+    def tick(self):
+        #time up - permanent widget in status bar with time connected!
+        #put clock somewhere.
+        #allow for linking other tasks - e.g. pacing summary etc.
+        pass
 
     def update(self):
         if not self.ear.data is None and not self.ear.fft is None:
@@ -41,4 +57,5 @@ if __name__=="__main__":
     form.show()
     form.update() #start with something
     app.exec_()
+    form.ear.close()
     print("DONE")

@@ -2,70 +2,109 @@
 
 # Form implementation generated from reading ui file 'ui_main.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
-#from PyQt5 import QtCore, QtGui
-
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(993, 692)
-        self.centralwidget = QtGui.QWidget(MainWindow)
-        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
-        self.horizontalLayout = QtGui.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.pbLevel = QtGui.QProgressBar(self.centralwidget)
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(961, 566)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.pbLevel = QtWidgets.QProgressBar(self.centralwidget)
         self.pbLevel.setMaximum(1000)
         self.pbLevel.setProperty("value", 123)
         self.pbLevel.setTextVisible(False)
         self.pbLevel.setOrientation(QtCore.Qt.Vertical)
-        self.pbLevel.setObjectName(_fromUtf8("pbLevel"))
+        self.pbLevel.setObjectName("pbLevel")
         self.horizontalLayout.addWidget(self.pbLevel)
-        self.frame = QtGui.QFrame(self.centralwidget)
-        self.frame.setFrameShape(QtGui.QFrame.NoFrame)
-        self.frame.setFrameShadow(QtGui.QFrame.Plain)
-        self.frame.setObjectName(_fromUtf8("frame"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.frame)
-        self.verticalLayout.setMargin(0)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.label = QtGui.QLabel(self.frame)
-        self.label.setObjectName(_fromUtf8("label"))
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(2)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy)
+        self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frame.setObjectName("frame")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.grFFT = PlotWidget(self.frame)
-        self.grFFT.setObjectName(_fromUtf8("grFFT"))
+        self.grFFT.setObjectName("grFFT")
         self.verticalLayout.addWidget(self.grFFT)
-        self.label_2 = QtGui.QLabel(self.frame)
-        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.label_2 = QtWidgets.QLabel(self.frame)
+        self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
         self.grPCM = PlotWidget(self.frame)
-        self.grPCM.setObjectName(_fromUtf8("grPCM"))
+        self.grPCM.setObjectName("grPCM")
         self.verticalLayout.addWidget(self.grPCM)
         self.horizontalLayout.addWidget(self.frame)
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(1)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
+        self.frame_2.setSizePolicy(sizePolicy)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.frame_2)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.groupBox = QtWidgets.QGroupBox(self.frame_2)
+        self.groupBox.setObjectName("groupBox")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.groupBox)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.btnStart = QtWidgets.QPushButton(self.groupBox)
+        self.btnStart.setObjectName("btnStart")
+        self.horizontalLayout_3.addWidget(self.btnStart)
+        self.btnStop = QtWidgets.QPushButton(self.groupBox)
+        self.btnStop.setObjectName("btnStop")
+        self.horizontalLayout_3.addWidget(self.btnStop)
+        self.verticalLayout_2.addWidget(self.groupBox)
+        self.scrollArea = QtWidgets.QScrollArea(self.frame_2)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName("scrollArea")
+        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 274, 392))
+        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
+        self.verticalLayout_2.addWidget(self.scrollArea)
+        self.horizontalLayout.addWidget(self.frame_2)
         MainWindow.setCentralWidget(self.centralwidget)
+        self.menuBar = QtWidgets.QMenuBar(MainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 961, 26))
+        self.menuBar.setObjectName("menuBar")
+        self.menuFile = QtWidgets.QMenu(self.menuBar)
+        self.menuFile.setObjectName("menuFile")
+        MainWindow.setMenuBar(self.menuBar)
+        self.statusBar = QtWidgets.QStatusBar(MainWindow)
+        self.statusBar.setObjectName("statusBar")
+        MainWindow.setStatusBar(self.statusBar)
+        self.actionClose = QtWidgets.QAction(MainWindow)
+        self.actionClose.setObjectName("actionClose")
+        self.menuFile.addAction(self.actionClose)
+        self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.label.setText(_translate("MainWindow", "frequency data (FFT):", None))
-        self.label_2.setText(_translate("MainWindow", "raw data (PCM):", None))
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Proteus Production Tool"))
+        self.label.setText(_translate("MainWindow", "frequency data (FFT):"))
+        self.label_2.setText(_translate("MainWindow", "raw data (PCM):"))
+        self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
+        self.btnStart.setText(_translate("MainWindow", "Start"))
+        self.btnStop.setText(_translate("MainWindow", "Stop"))
+        self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.actionClose.setText(_translate("MainWindow", "Close"))
 
 from pyqtgraph import PlotWidget
