@@ -5,6 +5,8 @@ import ui_main
 import numpy as np
 import pyqtgraph
 import SWHear
+import time
+import threading
 
 class ExampleApp(QtGui.QMainWindow, ui_main.Ui_MainWindow):
     def __init__(self, parent=None):
@@ -33,6 +35,16 @@ class ExampleApp(QtGui.QMainWindow, ui_main.Ui_MainWindow):
         #put clock somewhere.
         #allow for linking other tasks - e.g. pacing summary etc.
         pass
+
+    def sec_tick(self):
+        """do stuff once per sec"""
+        if self.keepRecording:
+            self.tick=threading.Thread(target=self.sec_tick)
+            self.tick.start()
+            print(len(self.data))
+            time.sleep(1)
+        else:
+            print(" -- tick STOPPED")
 
     def update(self):
         if not self.ear.data is None and not self.ear.fft is None:

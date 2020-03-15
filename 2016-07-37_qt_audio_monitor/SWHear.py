@@ -100,13 +100,13 @@ class SWHear():
         if self.rate is None:
             self.rate=self.valid_low_rate(self.device)
         self.chunk = int(self.rate/self.updatesPerSecond) # hold one tenth of a second in memory
-        print("\n"*2)
+        
         if not self.valid_test(self.device,self.rate):
             print("Guessing a valid microphone device/rate...")
             self.device=self.valid_input_devices()[0] #pick the first one
             self.rate=self.valid_low_rate(self.device)
         self.datax=np.arange(self.chunk)/float(self.rate)
-        print("\n"*5)
+        
         msg='recording from "%s" '%self.info["name"]
         msg+='(device %d) '%self.device
         msg+='at %d Hz'%self.rate
@@ -120,7 +120,7 @@ class SWHear():
             time.sleep(.1)
         self.stream.stop_stream()
         self.p.terminate()
-
+        
     ### STREAM HANDLING
 
     def stream_readchunk(self):
@@ -156,7 +156,7 @@ class SWHear():
         self.stream=self.p.open(format=pyaudio.paInt16,channels=1,
                       rate=self.rate,input=True,frames_per_buffer=self.chunk)
         self.stream_thread_new()
-    
+
     def stream_stop(self):
         """gently detach from things."""
         print(" -- sending stream termination command...")
